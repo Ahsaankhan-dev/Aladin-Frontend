@@ -14,7 +14,16 @@ type Slide = {
   href: string;
   img: string;
 };
-
+type Brand = { name: string; img: string; href: string };
+const brands: Brand[] = [
+  { name: 'Brand 1', img: '/assets/Brands/B1.png', href: '/brand/1' },
+  { name: 'Brand 2', img: '/assets/Brands/B2.png', href: '/brand/2' },
+  { name: 'Brand 3', img: '/assets/Brands/B3.png', href: '/brand/3' },
+  { name: 'Brand 4', img: '/assets/Brands/B4.png', href: '/brand/4' },
+  { name: 'Brand 5', img: '/assets/Brands/B5.png', href: '/brand/5' },
+  { name: 'Brand 6', img: '/assets/Brands/B6.png', href: '/brand/6' },
+  { name: 'Brand 7', img: '/assets/Brands/B7.png', href: '/brand/7' },
+];
 type Category = { title: string; img: string; href: string };
 
 const ARROW_BG = '#9C6B57'; // brown like reference
@@ -109,12 +118,13 @@ export default function Page() {
           <h4 className="mt-14 text-[22px] font-extrabold text-slate-900">popular brands</h4>
 
           <div className="mt-8 flex flex-wrap items-center gap-10 text-slate-400">
-            <Brand>NIKE</Brand>
-            <Brand>ADIDAS</Brand>
-            <Brand>COLGATE</Brand>
-            <Brand>ZARA</Brand>
-            <Brand>LV</Brand>
-            <Brand>CERAVE</Brand>
+            {
+                brands.map((b) => (
+                  <Link key={b.name} href={b.href} prefetch={false}>
+                    <Image src={b.img} alt={b.name} width={50} height={20} className="object-contain" />
+                  </Link>
+                ))
+            }
           </div>
         </div>
       </section>
