@@ -78,7 +78,7 @@ export default function HomeHeroSlider() {
           >
             {slides.map((s, i) => (
               <div key={i} className="w-full shrink-0">
-                <div className="relative flex min-h-[220px] items-center border border-slate-200 bg-white px-6 py-10 sm:min-h-[260px] sm:px-10 lg:min-h-[380px] lg:px-14">
+                <div className="relative flex min-h-[220px] items-center border border-slate-200 bg-white px-13 py-10 sm:min-h-[260px] sm:px-16 lg:min-h-[380px] lg:px-18">
                   {/* Text */}
                   <div className="relative z-10 max-w-[520px]">
                     <h2 className="whitespace-pre-line text-xl font-extrabold leading-[1.08] text-slate-900 sm:text-4xl lg:text-5xl">
@@ -128,7 +128,7 @@ export default function HomeHeroSlider() {
             type="button"
             onClick={prev}
             aria-label="Previous"
-            className="absolute left-3 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full text-white shadow-sm transition-transform hover:scale-[1.04]"
+            className="absolute left-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full text-white shadow-sm transition-transform hover:scale-[1.04]"
             style={{ backgroundColor: active.arrowBg }}
           >
             <ChevronLeft className="h-5 w-5" />
@@ -138,7 +138,7 @@ export default function HomeHeroSlider() {
             type="button"
             onClick={next}
             aria-label="Next"
-            className="absolute right-3 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full text-white shadow-sm transition-transform hover:scale-[1.04]"
+            className="absolute right-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full text-white shadow-sm transition-transform hover:scale-[1.04]"
             style={{ backgroundColor: active.arrowBg }}
           >
             <ChevronRight className="h-5 w-5" />
