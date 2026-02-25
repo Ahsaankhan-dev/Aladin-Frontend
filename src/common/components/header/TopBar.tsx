@@ -51,7 +51,7 @@ export default function TopBar() {
             height={44}
             alt="Aladdin Logo"
             priority
-            className="w-23 sm:w-30 lg:w-32.5"
+            className="w-23 sm:w-30 lg:w-26"
           />
         </Link>
 

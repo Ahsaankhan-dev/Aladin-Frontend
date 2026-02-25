@@ -62,11 +62,11 @@ export default function Page() {
 
   const categories: Category[] = useMemo(
     () => [
-      { title: 'Beauty & Personal Care', img: '/assets/home/cat-1.jpg', href: '/category/beauty' },
-      { title: 'Health & Household', img: '/assets/home/cat-2.jpg', href: '/category/health' },
-      { title: 'Home & Kitchen', img: '/assets/home/cat-3.jpg', href: '/category/kitchen' },
-      { title: 'Aladdin Pharmacy', img: '/assets/home/cat-4.jpg', href: '/category/pharmacy' },
-      { title: 'Medical Instruments', img: '/assets/home/cat-5.jpg', href: '/category/medical' },
+      { title: 'Beauty & Personal Care', img: '/assets/products/p1.png', href: '/category/beauty' },
+      { title: 'Health & Household', img: '/assets/products/p2.png', href: '/category/health' },
+      { title: 'Home & Kitchen', img: '/assets/products/p3.png', href: '/category/kitchen' },
+      { title: 'Aladdin Pharmacy', img: '/assets/products/p4.png', href: '/category/pharmacy' },
+      { title: 'Medical Instruments', img: '/assets/products/p1.png', href: '/category/medical' },
     ],
     []
   );
