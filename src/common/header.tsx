@@ -136,7 +136,7 @@ export default function Navbar() {
   const [cat, setCat] = useState(categories[0]);
 
   return (
-    <header className="w-full bg-[#02728B] fixed top-0 left-0 z-50">
+    <header className="w-full bg-[#02728B] ">
       {/* ONE ROW ON MOBILE + DESKTOP */}
       <div className="mx-auto flex w-full max-w-[1400px] items-center gap-5 px-4 py-3 lg:px-10 lg:py-4">
         {/* LOGO */}
