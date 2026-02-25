@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Manrope } from "next/font/google";
-import Navbar from "@/common/header";
-import Footer from "@/common/footer";
-
+import LayoutShell from "./LayoutShell";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -24,12 +22,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${manrope.variable}`}
-      >
-        <Navbar/>
-        {children}
-        <Footer/>
+      <body className={manrope.variable}>
+        <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
   );
