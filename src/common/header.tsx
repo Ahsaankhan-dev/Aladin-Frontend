@@ -77,7 +77,7 @@ function CategoryDropdown({
 
       <div
         className={[
-          'absolute left-0 top-[calc(100%+8px)] z-[999] w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-lg',
+          'absolute left-0 top-[calc(100%+8px)] z-999 w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-lg',
           'transition-all duration-200',
           open
             ? 'pointer-events-auto translate-y-0 opacity-100'
@@ -137,8 +137,8 @@ export default function Navbar() {
 
   return (
     <header className="w-full bg-[#02728B] ">
-      {/* ONE ROW ON MOBILE + DESKTOP */}
-      <div className="mx-auto flex w-full max-w-[1400px] items-center gap-5 px-4 py-3 lg:px-10 lg:py-4">
+    
+      <div className="mx-auto flex w-full max-w-350 items-center gap-5 px-4 py-3 lg:px-10 lg:py-4">
         {/* LOGO */}
         <div className="shrink-0">
           <Link href="/" prefetch={false} className="block">
@@ -149,7 +149,7 @@ export default function Navbar() {
               alt="Aladdin Logo"
               priority
               unoptimized
-              className="w-[92px] sm:w-[120px] lg:w-[130px]"
+              className="w-23 sm:w-30 lg:w-32.5"
             />
           </Link>
         </div>
@@ -157,7 +157,7 @@ export default function Navbar() {
         {/* SEARCH (ALWAYS VISIBLE) */}
         <form
           onSubmit={(e) => e.preventDefault()}
-          className="flex flex-1 min-w-0 items-center lg:max-w-[780px]"
+          className="flex flex-1 min-w-0 items-center lg:max-w-195"
         >
           <div className="flex h-11 w-full min-w-0 items-stretch rounded-md bg-white shadow-sm">
             <input
