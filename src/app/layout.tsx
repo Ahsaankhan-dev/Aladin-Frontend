@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${manrope.variable}`}
+        className={`${manrope.variable} bg-white text-slate-900`}
       >
         <Navbar/>
         {children}
