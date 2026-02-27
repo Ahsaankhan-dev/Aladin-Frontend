@@ -8,12 +8,11 @@ import Header from "@/common/components/header/Header";
 export default function LayoutShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-
   const isProductsRoute =
     pathname === "/products" || pathname.startsWith("/products/");
 
-
-  const headerAllowed =
+  // ye sab routes pe Header chahiye, Navbar nahi
+  const useAppHeader =
     isProductsRoute ||
     pathname === "/profile" ||
     pathname === "/cart" ||
@@ -25,9 +24,9 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
 
   return (
     <>
-      {!isProductsRoute && <Navbar />}
+      {!useAppHeader && <Navbar />}
 
-      {headerAllowed && <Header />}
+      {useAppHeader && <Header />}
 
       {children}
 
