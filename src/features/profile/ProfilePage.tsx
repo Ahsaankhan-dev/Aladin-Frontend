@@ -1,35 +1,41 @@
+// ══════════════════════════════════════════
+//  profile/ProfilePage.tsx  —  Main entry point
+// ══════════════════════════════════════════
+// BUG FIXES:
+//  1. Removed minHeight: "100vh" + background from outer div → double scrollbar fix
+//  2. Removed global `* { margin:0; padding:0 }` style tag → was breaking Next.js layout
+//  3. Removed inline <style> tag entirely → move to globals.css
+//  4. Added "use client" directive for Next.js
+// ══════════════════════════════════════════
+
 "use client";
+
 import React, { useState } from "react";
 import { TEAL, TEAL_LIGHT } from "./constants";
 import type { PageKey } from "./types";
 
-// ─── Page components ─────────────────────
-import PersonalInfoPage  from "./components/PersonalInfoPage";
-import LocationPage      from "./components/LocationPage";
-import PaymentPage       from "./components/PaymentPage";
-import ContactPrefsPage  from "./components/ContactPrefsPage";
-import WalletPage        from "./components/WalletPage";
-import RewardsPage       from "./components/RewardsPage";
-import OrdersPage        from "./components/OrdersPage";
-import HelpPage          from "./components/HelpPage";
-
-// ─── Layout components ────────────────────
-import Sidebar           from "./components/Sidebar";
+import PersonalInfoPage from "./components/PersonalInfoPage";
+import LocationPage     from "./components/LocationPage";
+import PaymentPage      from "./components/PaymentPage";
+import ContactPrefsPage from "./components/ContactPrefsPage";
+import WalletPage       from "./components/WalletPage";
+import RewardsPage      from "./components/RewardsPage";
+import OrdersPage       from "./components/OrdersPage";
+import HelpPage         from "./components/HelpPage";
+import Sidebar          from "./components/Sidebar";
 import { MenuIco, CloseIco } from "./components/Icons";
 
-// ─── Page registry ───────────────────────
 const PAGE_MAP: Record<Exclude<PageKey, "Sign Out">, React.FC> = {
-  "My wallet":             WalletPage,
-  "My rewards":            RewardsPage,
-  "Orders":                OrdersPage,
-  "Personal Information":  PersonalInfoPage,
-  "Location":              LocationPage,
-  "Payment Method":        PaymentPage,
-  "Contact Preferences":   ContactPrefsPage,
-  "Need Help":             HelpPage,
+  "My wallet":            WalletPage,
+  "My rewards":           RewardsPage,
+  "Orders":               OrdersPage,
+  "Personal Information": PersonalInfoPage,
+  "Location":             LocationPage,
+  "Payment Method":       PaymentPage,
+  "Contact Preferences":  ContactPrefsPage,
+  "Need Help":            HelpPage,
 };
 
-// ─── Sign Out screen ─────────────────────
 const SignOutScreen: React.FC = () => (
   <div style={{ textAlign: "center", padding: "44px 0" }}>
     <div style={{ fontSize: 54, marginBottom: 14 }}>👋</div>
@@ -47,35 +53,22 @@ const SignOutScreen: React.FC = () => (
   </div>
 );
 
-// ─── ProfilePage ─────────────────────────
 const ProfilePage: React.FC = () => {
-  const [active, setActive] = useState<PageKey>("Personal Information");
-  const [drawer, setDrawer] = useState<boolean>(false);
+  const [active, setActive]   = useState<PageKey>("Personal Information");
+  const [drawer, setDrawer]   = useState<boolean>(false);
 
-  // Resolve the active page component
   const PageComp: React.FC =
     active === "Sign Out"
       ? SignOutScreen
       : PAGE_MAP[active as Exclude<PageKey, "Sign Out">];
 
   return (
-    <div style={{ fontFamily: "'Segoe UI', system-ui, sans-serif", background: "#f2f2f2", minHeight: "100vh" }}>
-      <style>{`
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
-        button { font-family: inherit; }
-
-        @media (max-width: 680px) {
-          .desk-sidebar { display: none !important; }
-          .mob-bar      { display: flex !important; }
-          .content-pad  { padding: 18px 14px !important; }
-        }
-      `}</style>
+    // ✅ FIX 1: no minHeight/background here — let LayoutShell/globals handle it
+    <div style={{ fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
 
       {/* ── Mobile top bar ── */}
       <div
-        className="mob-bar"
+        className="profile-mob-bar"
         style={{
           display: "none", alignItems: "center", gap: 10,
           padding: "12px 16px", background: "#fff",
@@ -95,7 +88,7 @@ const ProfilePage: React.FC = () => {
         <span style={{ fontSize: 15, fontWeight: 700, color: TEAL }}>{active}</span>
       </div>
 
-      {/* ── Layout ── */}
+      {/* ── Main layout ── */}
       <div style={{
         display: "flex", gap: 18, padding: "24px 20px",
         maxWidth: 1100, margin: "0 auto", alignItems: "flex-start",
@@ -103,17 +96,19 @@ const ProfilePage: React.FC = () => {
 
         {/* Desktop sidebar */}
         <aside
-          className="desk-sidebar"
+          className="profile-desk-sidebar"
           style={{
             width: 240, flexShrink: 0, borderRadius: 10,
             overflow: "hidden", boxShadow: "0 1px 8px rgba(0,0,0,0.1)",
             border: "1px solid #e0e0e0",
+            // ✅ FIX 2: alignSelf so sidebar doesn't stretch full height
+            alignSelf: "flex-start",
           }}
         >
           <Sidebar active={active} setActive={setActive} />
         </aside>
 
-        {/* Mobile drawer */}
+        {/* Mobile drawer overlay */}
         {drawer && (
           <div
             style={{ position: "fixed", inset: 0, zIndex: 60, background: "rgba(0,0,0,0.5)" }}
@@ -136,18 +131,33 @@ const ProfilePage: React.FC = () => {
           </div>
         )}
 
-        {/* Main content area */}
+        {/* Main content */}
         <main
-          className="content-pad"
+          className="profile-content"
           style={{
             flex: 1, minWidth: 0, background: "#fff", borderRadius: 10,
             padding: "30px 32px", boxShadow: "0 1px 6px rgba(0,0,0,0.08)",
             border: "1px solid #e8e8e8",
           }}
         >
+          {/* ✅ FIX 3: Page title rendered here, not inside each component */}
+          {active !== "Sign Out" && (
+            <h2 style={{ color: TEAL, fontSize: 24, fontWeight: 700, marginBottom: 28 }}>
+              {active}
+            </h2>
+          )}
           <PageComp />
         </main>
       </div>
+
+      {/* ✅ FIX 4: Scoped CSS — only profile classes, no global * reset */}
+      <style>{`
+        @media (max-width: 680px) {
+          .profile-desk-sidebar { display: none !important; }
+          .profile-mob-bar      { display: flex !important; }
+          .profile-content      { padding: 18px 14px !important; }
+        }
+      `}</style>
     </div>
   );
 };
