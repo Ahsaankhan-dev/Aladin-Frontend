@@ -1,3 +1,8 @@
+// ══════════════════════════════════════════
+//  profile/components/LocationPage.tsx
+// BUG FIX: Removed outer <div> + <h2> (title now in ProfilePage)
+// ══════════════════════════════════════════
+
 "use client";
 
 import React, { useState } from "react";
@@ -19,9 +24,7 @@ const LocationPage: React.FC = () => {
       setForm(prev => ({ ...prev, [k]: e.target.value }));
 
   return (
-    <div>
-      <h2 style={{ color: TEAL, fontSize: 24, fontWeight: 700, marginBottom: 24 }}>Location</h2>
-
+    <>
       {/* Map placeholder */}
       <div style={{
         height: 170, borderRadius: 10, marginBottom: 22,
@@ -30,7 +33,6 @@ const LocationPage: React.FC = () => {
         alignItems: "center", justifyContent: "center", gap: 10,
         position: "relative", overflow: "hidden",
       }}>
-        {/* Dot grid overlay */}
         <div style={{
           position: "absolute", inset: 0, opacity: 0.12,
           backgroundImage: "radial-gradient(circle at 1px 1px, #1C8A9E 1px, transparent 0)",
@@ -46,10 +48,7 @@ const LocationPage: React.FC = () => {
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
           </svg>
         </div>
-        <span style={{
-          fontSize: 12, fontWeight: 600, color: TEAL,
-          letterSpacing: "0.07em", position: "relative", zIndex: 1,
-        }}>
+        <span style={{ fontSize: 12, fontWeight: 600, color: TEAL, letterSpacing: "0.07em", position: "relative", zIndex: 1 }}>
           SET YOUR LOCATION
         </span>
       </div>
@@ -59,11 +58,10 @@ const LocationPage: React.FC = () => {
         <div style={{ gridColumn: "1 / -1" }}>
           <Field label="Street Address" placeholder="123 Main Street" value={form.address} onChange={up("address")} full />
         </div>
-        <Field label="City"             placeholder="New York" value={form.city}  onChange={up("city")}  />
-        <Field label="State / Province" placeholder="NY"       value={form.state} onChange={up("state")} />
-        <Field label="ZIP / Postal Code" placeholder="10001"   value={form.zip}   onChange={up("zip")}   />
+        <Field label="City"              placeholder="New York" value={form.city}  onChange={up("city")}  />
+        <Field label="State / Province"  placeholder="NY"       value={form.state} onChange={up("state")} />
+        <Field label="ZIP / Postal Code" placeholder="10001"    value={form.zip}   onChange={up("zip")}   />
 
-        {/* Country dropdown */}
         <div>
           <label style={{ display: "block", fontSize: 14, color: "#333", marginBottom: 7 }}>Country</label>
           <select
@@ -80,12 +78,11 @@ const LocationPage: React.FC = () => {
           </select>
         </div>
 
-        {/* Buttons */}
         <div style={{ gridColumn: "1 / -1", paddingTop: 12, borderTop: "1px solid #f0f0f0" }}>
           <Btns />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

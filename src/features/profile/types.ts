@@ -1,8 +1,10 @@
 // ══════════════════════════════════════════
 //  profile/types.ts  —  Shared TypeScript types
+// BUG FIX: Removed NavGroup/NavItem (now defined locally in Sidebar)
+//          Removed React import (not needed in .ts file)
 // ══════════════════════════════════════════
 
-// ─── Personal Information ───────────────
+// ─── Personal Information ─────────────────
 export interface PersonalInfoForm {
   firstName: string;
   lastName: string;
@@ -107,10 +109,3 @@ export type PageKey =
   | "Contact Preferences"
   | "Need Help"
   | "Sign Out";
-
-export interface NavItem {
-  label: PageKey;
-  Ico: React.FC;
-}
-
-export type NavGroup = NavItem[];

@@ -1,20 +1,26 @@
+// ══════════════════════════════════════════
+//  profile/components/Sidebar.tsx
+// BUG FIX: Added "use client", fixed NavGroup type import
+// ══════════════════════════════════════════
+
 "use client";
 
 import React from "react";
 import { TEAL, TEAL_DARK, TEAL_LIGHT } from "../constants";
-import type { PageKey, NavGroup } from "../types";
-import {
-  WalletIco, RewardIco, TruckIco,
-  PersonIco, PinIco, CardIco, GearIco,
-  HelpIco, SignOutIco,
-} from "./Icons";
+import type { PageKey } from "../types";
+import { WalletIco, RewardIco, TruckIco, PersonIco, PinIco, CardIco, GearIco, HelpIco, SignOutIco } from "./Icons";
 
 // ─── Nav config ──────────────────────────
-export const NAV_GROUPS: NavGroup[] = [
+interface NavItemConfig {
+  label: PageKey;
+  Ico: React.FC;
+}
+
+const NAV_GROUPS: NavItemConfig[][] = [
   [
-    { label: "My wallet",  Ico: WalletIco  },
-    { label: "My rewards", Ico: RewardIco  },
-    { label: "Orders",     Ico: TruckIco   },
+    { label: "My wallet",  Ico: WalletIco },
+    { label: "My rewards", Ico: RewardIco },
+    { label: "Orders",     Ico: TruckIco  },
   ],
   [
     { label: "Personal Information", Ico: PersonIco },
@@ -70,12 +76,9 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ active, setActive, onClose }) => (
-  <div style={{ display: "flex", flexDirection: "column", height: "100%", overflowY: "auto" }}>
+  <div style={{ display: "flex", flexDirection: "column", overflowY: "auto" }}>
     {/* Profile header */}
-    <div style={{
-      background: TEAL, padding: "26px 20px 22px",
-      display: "flex", flexDirection: "column", alignItems: "center",
-    }}>
+    <div style={{ background: TEAL, padding: "26px 20px 22px", display: "flex", flexDirection: "column", alignItems: "center" }}>
       <div style={{
         width: 88, height: 88, borderRadius: "50%", marginBottom: 10,
         background: "linear-gradient(135deg, #2bc0d8, #0d7585)",
@@ -86,11 +89,7 @@ const Sidebar: React.FC<SidebarProps> = ({ active, setActive, onClose }) => (
         <span style={{ fontSize: 46 }}>👩</span>
       </div>
       <div style={{ color: "#fff", fontWeight: 700, fontSize: 19, marginBottom: 12 }}>Kiran</div>
-      <div style={{
-        display: "flex", alignItems: "center", gap: 8,
-        background: "#fff", borderRadius: 8, padding: "8px 16px",
-        boxShadow: "0 2px 6px rgba(0,0,0,0.12)",
-      }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, background: "#fff", borderRadius: 8, padding: "8px 16px", boxShadow: "0 2px 6px rgba(0,0,0,0.12)" }}>
         <span style={{ fontSize: 12, color: "#777", fontWeight: 500 }}>Balance</span>
         <span style={{ fontSize: 18, fontWeight: 700, color: "#111" }}>$45.00</span>
       </div>
@@ -100,14 +99,7 @@ const Sidebar: React.FC<SidebarProps> = ({ active, setActive, onClose }) => (
     {NAV_GROUPS.map((group, gi) => (
       <div key={gi} style={{ background: "#fff", marginTop: gi === 0 ? 0 : 2 }}>
         {group.map(item => (
-          <NavItem
-            key={item.label}
-            label={item.label}
-            Ico={item.Ico}
-            active={active}
-            setActive={setActive}
-            onClose={onClose}
-          />
+          <NavItem key={item.label} label={item.label} Ico={item.Ico} active={active} setActive={setActive} onClose={onClose} />
         ))}
       </div>
     ))}

@@ -85,7 +85,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="w-full bg-[#02728B] h-xl">
+    <footer className="w-full bg-[#02728B]">
       <div className="mx-auto w-full max-w-[1400px] px-8 pt-8 pb-5  sm:pt-24 lg:px-16 lg:pt-16">
         <div className="grid gap-16 lg:grid-cols-[460px_1fr] mb-10">
           {/* LEFT */}
