@@ -90,7 +90,7 @@ export default function Page() {
       <HomeHeroSlider/>
       {/* CATEGORY + BRANDS (white like reference) */}
       <section className="w-full bg-white">
-        <div className="mx-auto w-full max-w-[1400px] px-4 py-14 lg:px-10">
+        <div className="mx-auto w-full max-w-350 px-4 py-14 lg:px-10">
           <div className="flex items-center justify-between">
             <h3 className="text-[28px] font-extrabold text-slate-900">Explore popular category</h3>
 
@@ -106,7 +106,7 @@ export default function Page() {
           <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
             {categories.map((c) => (
               <Link key={c.title} href={c.href} prefetch={false} className="group">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-100">
+                <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-slate-100">
                   <Image src={c.img} alt={c.title} fill className="object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
                 </div>
 
