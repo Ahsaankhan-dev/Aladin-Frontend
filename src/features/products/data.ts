@@ -1,13 +1,13 @@
 import type { CategoryItem, Product } from "./types";
 
 export const categories: CategoryItem[] = [
-  { label: "All", href: "/products?cat=all&page=1" },
-  { label: "Facial Cleanser", href: "/products?cat=facial-cleanser&page=1" },
-  { label: "Pomade", href: "/products?cat=pomade&page=1" },
-  { label: "Perfume", href: "/products?cat=perfume&page=1" },
-  { label: "Baby Powder", href: "/products?cat=baby-powder&page=1" },
-  { label: "Eye Liner", href: "/products?cat=eye-liner&page=1" },
-  { label: "Lip Clippers", href: "/products?cat=lip-clippers&page=1" },
+  { label: "All", href: "/shop?cat=all&page=1" },
+  { label: "Facial Cleanser", href: "/shop?cat=facial-cleanser&page=1" },
+  { label: "Pomade", href: "/shop?cat=pomade&page=1" },
+  { label: "Perfume", href: "/shop?cat=perfume&page=1" },
+  { label: "Baby Powder", href: "/shop?cat=baby-powder&page=1" },
+  { label: "Eye Liner", href: "/shop?cat=eye-liner&page=1" },
+  { label: "Lip Clippers", href: "/shop?cat=lip-clippers&page=1" },
 ];
 
 export const products: Product[] = [
@@ -20,7 +20,7 @@ export const products: Product[] = [
     priceFrom: 39.99,
     priceTo: 30.65,
     category: "facial-cleanser",
-    href: "/products/p1",
+    href: "/shop/p1",
     description:
       "A gentle deep cleansing facial wash infused with Aloe Vera. Removes dirt, oil, and impurities while keeping your skin hydrated and fresh.",
   },
@@ -33,7 +33,7 @@ export const products: Product[] = [
     priceFrom: 29.99,
     priceTo: 22.50,
     category: "facial-cleanser",
-    href: "/products/p2",
+    href: "/shop/p2",
     description:
       "Foam-based cleanser that controls excess oil and gives a matte finish. Perfect for daily use on oily and combination skin types.",
   },
@@ -46,7 +46,7 @@ export const products: Product[] = [
     priceFrom: 19.99,
     priceTo: 14.99,
     category: "pomade",
-    href: "/products/p3",
+    href: "/shop/p3",
     description:
       "A classic water-based pomade that gives a strong hold and high-shine finish. Easy to wash out and perfect for all hair types.",
   },
@@ -59,7 +59,7 @@ export const products: Product[] = [
     priceFrom: 15.00,
     priceTo: 11.00,
     category: "pomade",
-    href: "/products/p4",
+    href: "/shop/p4",
     description:
       "Achieve a natural, matte look with medium hold. This pomade keeps your hair styled all day without the greasiness.",
   },
@@ -72,7 +72,7 @@ export const products: Product[] = [
     priceFrom: 59.99,
     priceTo: 49.99,
     category: "perfume",
-    href: "/products/p5",
+    href: "/shop/p5",
     description:
       "A luxurious floral fragrance with notes of rose, jasmine, and vanilla. Long-lasting scent that keeps you fresh all day.",
   },
@@ -85,7 +85,7 @@ export const products: Product[] = [
     priceFrom: 69.99,
     priceTo: 55.00,
     category: "perfume",
-    href: "/products/p6",
+    href: "/shop/p6",
     description:
       "A bold and masculine fragrance with deep oud and warm amber notes. Ideal for evenings and special occasions.",
   },
@@ -98,7 +98,7 @@ export const products: Product[] = [
     priceFrom: 9.99,
     priceTo: 7.50,
     category: "baby-powder",
-    href: "/products/p7",
+    href: "/shop/p7",
     description:
       "A soft, talc-free baby powder that keeps your baby's skin dry, smooth, and comfortable. Dermatologist tested and hypoallergenic.",
   },
@@ -111,7 +111,7 @@ export const products: Product[] = [
     priceFrom: 12.99,
     priceTo: 10.00,
     category: "baby-powder",
-    href: "/products/p8",
+    href: "/shop/p8",
     description:
       "Infused with calming lavender, this baby powder soothes sensitive skin and helps baby sleep peacefully through the night.",
   },
@@ -124,7 +124,7 @@ export const products: Product[] = [
     priceFrom: 14.99,
     priceTo: 10.99,
     category: "eye-liner",
-    href: "/products/p9",
+    href: "/shop/p9",
     description:
       "A precision tip liquid eyeliner that delivers sharp, defined lines. Waterproof formula that lasts all day without smudging.",
   },
@@ -137,7 +137,7 @@ export const products: Product[] = [
     priceFrom: 8.99,
     priceTo: 6.50,
     category: "eye-liner",
-    href: "/products/p10",
+    href: "/shop/p10",
     description:
       "A smooth kohl pencil that glides effortlessly for bold, dramatic eyes. Smudge-proof and buildable for any look.",
   },
@@ -150,7 +150,7 @@ export const products: Product[] = [
     priceFrom: 11.99,
     priceTo: 8.99,
     category: "lip-clippers",
-    href: "/products/p11",
+    href: "/shop/p11",
     description:
       "Define and shape your lips perfectly with this matte lip liner. Comes in 6 versatile shades from nude to bold.",
   },
@@ -163,7 +163,7 @@ export const products: Product[] = [
     priceFrom: 13.99,
     priceTo: 10.50,
     category: "lip-clippers",
-    href: "/products/p12",
+    href: "/shop/p12",
     description:
       "An anti-feather lip definer that keeps your lipstick in place all day. Smooth application with a creamy, long-wearing formula.",
   },
