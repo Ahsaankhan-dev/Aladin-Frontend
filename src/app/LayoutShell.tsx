@@ -9,9 +9,9 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
   const pathname = usePathname();
 
   const isProductsRoute =
-    pathname === "/products" || pathname.startsWith("/products/");
+    pathname === "/shop" || pathname.startsWith("/shop/");
 
-  // ye sab routes pe Header chahiye, Navbar nahi
+
   const useAppHeader =
     isProductsRoute ||
     pathname === "/profile" ||
