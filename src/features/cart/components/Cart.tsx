@@ -24,6 +24,8 @@ type CartItem = {
   price: number;
   originalPrice: number;
   quantity: number;
+  size?: string;
+  color?: string;
 };
 
 // Mock cart data based on screenshot
@@ -35,6 +37,8 @@ const initialCartItems: CartItem[] = [
     price: 30.43,
     originalPrice: 39.99,
     quantity: 1,
+    size: "M",
+    color: "Black",
   },
   {
     id: "2",
@@ -43,12 +47,23 @@ const initialCartItems: CartItem[] = [
     price: 30.43,
     originalPrice: 39.99,
     quantity: 1,
+    size: "L",
+    color: "White",
   },
 ];
+
+// Available options for edit modal
+const sizeOptions = ["XS", "S", "M", "L", "XL", "XXL"];
+const colorOptions = ["Black", "White", "Red", "Blue", "Green", "Yellow"];
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
   const [promoCode, setPromoCode] = useState("");
+  const [editingItem, setEditingItem] = useState<CartItem | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [editQuantity, setEditQuantity] = useState(1);
 
   // Update quantity
   const updateQuantity = (id: string, newQuantity: number) => {
@@ -63,6 +78,40 @@ export default function CartPage() {
   // Remove item
   const removeItem = (id: string) => {
     setCartItems(items => items.filter(item => item.id !== id));
+  };
+
+  // Open edit modal
+  const openEditModal = (item: CartItem) => {
+    setEditingItem(item);
+    setSelectedSize(item.size || "");
+    setSelectedColor(item.color || "");
+    setEditQuantity(item.quantity);
+    setIsModalOpen(true);
+  };
+
+  // Close edit modal
+  const closeEditModal = () => {
+    setIsModalOpen(false);
+    setEditingItem(null);
+  };
+
+  // Save edited item
+  const saveEdit = () => {
+    if (editingItem) {
+      setCartItems(items =>
+        items.map(item =>
+          item.id === editingItem.id
+            ? {
+                ...item,
+                size: selectedSize,
+                color: selectedColor,
+                quantity: editQuantity,
+              }
+            : item
+        )
+      );
+      closeEditModal();
+    }
   };
 
   // Calculate totals
@@ -182,6 +231,19 @@ export default function CartPage() {
                                 -{discountPercent}%
                               </span>
                             </div>
+                            {/* Size and Color Tags */}
+                            <div className="flex items-center gap-1 mt-1">
+                              {item.size && (
+                                <span className="text-[8px] bg-slate-100 px-1.5 py-0.5 rounded-full">
+                                  Size: {item.size}
+                                </span>
+                              )}
+                              {item.color && (
+                                <span className="text-[8px] bg-slate-100 px-1.5 py-0.5 rounded-full">
+                                  Color: {item.color}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
 
@@ -249,6 +311,19 @@ export default function CartPage() {
                                 -{discountPercent}%
                               </span>
                             </div>
+                            {/* Size and Color Tags */}
+                            <div className="flex items-center gap-1 mt-1">
+                              {item.size && (
+                                <span className="text-[8px] sm:text-[9px] bg-slate-100 px-1.5 py-0.5 rounded-full">
+                                  Size: {item.size}
+                                </span>
+                              )}
+                              {item.color && (
+                                <span className="text-[8px] sm:text-[9px] bg-slate-100 px-1.5 py-0.5 rounded-full">
+                                  Color: {item.color}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
 
@@ -295,6 +370,7 @@ export default function CartPage() {
                         <div className="col-span-1">
                           <div className="flex items-center gap-0.5 sm:gap-1">
                             <button
+                              onClick={() => openEditModal(item)}
                               className="p-1 sm:p-1.5 text-slate-400 hover:text-[#0B8BA6] transition"
                               title="Edit"
                             >
@@ -348,7 +424,7 @@ export default function CartPage() {
                     <span className="font-semibold text-green-600">Free</span>
                   </div>
 
-                
+                  {/* Promo Code */}
                   <div className="pt-1 sm:pt-2">
                     <div className="flex gap-1 sm:gap-2">
                       <input
@@ -365,10 +441,10 @@ export default function CartPage() {
                   </div>
                 </div>
 
-               
+                {/* Divider */}
                 <div className="border-t border-slate-200 my-3 sm:my-4"></div>
 
-               
+                {/* Total */}
                 <div className="flex justify-between items-center mb-4 sm:mb-6">
                   <span className="text-xs sm:text-sm font-bold text-gray-900">Total:</span>
                   <span className="text-base sm:text-lg font-extrabold text-[#0B8BA6]">
@@ -376,7 +452,7 @@ export default function CartPage() {
                   </span>
                 </div>
 
-               
+                {/* Checkout Button */}
                 <button className="w-full bg-[#F59E0B] text-white py-2 sm:py-3 rounded-lg text-xs sm:text-sm font-bold hover:bg-[#e6950a] transition flex items-center justify-center gap-1 sm:gap-2">
                   Proceed to Checkout
                   <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -394,7 +470,7 @@ export default function CartPage() {
                   </div>
                 </div>
 
-              
+                {/* Continue Shopping */}
                 <Link
                   href="/products"
                   className="mt-3 sm:mt-4 flex items-center justify-center gap-0.5 sm:gap-1 text-[9px] sm:text-[11px] text-[#0B8BA6] hover:underline"
@@ -407,7 +483,7 @@ export default function CartPage() {
           )}
         </div>
 
-       
+        {/* Empty Cart State */}
         {cartItems.length === 0 && (
           <div className="text-center py-8 sm:py-12">
             <ShoppingCart className="h-12 w-12 sm:h-16 sm:w-16 text-slate-200 mx-auto mb-3 sm:mb-4" />
@@ -426,6 +502,142 @@ export default function CartPage() {
           </div>
         )}
       </div>
+
+      {/* Edit Modal */}
+      {isModalOpen && editingItem && (
+        <div className="fixed inset-0 z-50 overflow-y-auto">
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/50 transition-opacity"
+            onClick={closeEditModal}
+          />
+          
+          {/* Modal */}
+          <div className="flex min-h-full items-center justify-center p-4">
+            <div className="relative bg-white rounded-xl shadow-xl max-w-md w-full mx-auto animate-in fade-in zoom-in duration-200">
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-4 sm:p-6 border-b border-slate-200">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900">
+                  Edit Item
+                </h3>
+                <button
+                  onClick={closeEditModal}
+                  className="p-1 hover:bg-slate-100 rounded-lg transition"
+                >
+                  <X className="h-4 w-4 sm:h-5 sm:w-5 text-slate-500" />
+                </button>
+              </div>
+
+              {/* Modal Body */}
+              <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+                {/* Product Preview */}
+                <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                  <div className="relative w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-lg overflow-hidden">
+                    <Image
+                      src={editingItem.image}
+                      alt={editingItem.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium text-gray-900 line-clamp-2">
+                      {editingItem.name}
+                    </p>
+                    <p className="text-[11px] sm:text-xs font-semibold text-[#0B8BA6] mt-1">
+                      ${editingItem.price.toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Size Selection */}
+                <div>
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
+                    Size
+                  </label>
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                    {sizeOptions.map((size) => (
+                      <button
+                        key={size}
+                        onClick={() => setSelectedSize(size)}
+                        className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-medium border transition ${
+                          selectedSize === size
+                            ? "border-[#0B8BA6] bg-[#0B8BA6]/10 text-[#0B8BA6]"
+                            : "border-slate-200 text-slate-600 hover:border-slate-300"
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Color Selection */}
+                <div>
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
+                    Color
+                  </label>
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                    {colorOptions.map((color) => (
+                      <button
+                        key={color}
+                        onClick={() => setSelectedColor(color)}
+                        className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-medium border transition ${
+                          selectedColor === color
+                            ? "border-[#0B8BA6] bg-[#0B8BA6]/10 text-[#0B8BA6]"
+                            : "border-slate-200 text-slate-600 hover:border-slate-300"
+                        }`}
+                      >
+                        {color}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Quantity */}
+                <div>
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
+                    Quantity
+                  </label>
+                  <div className="flex items-center border border-slate-200 rounded-lg w-fit">
+                    <button
+                      onClick={() => setEditQuantity(Math.max(1, editQuantity - 1))}
+                      className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center hover:bg-slate-50"
+                    >
+                      <Minus className="h-3 w-3 sm:h-4 sm:w-4 text-slate-500" />
+                    </button>
+                    <span className="w-8 sm:w-10 text-center text-xs sm:text-sm font-medium">
+                      {editQuantity.toString().padStart(2, "0")}
+                    </span>
+                    <button
+                      onClick={() => setEditQuantity(editQuantity + 1)}
+                      className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center hover:bg-slate-50"
+                    >
+                      <Plus className="h-3 w-3 sm:h-4 sm:w-4 text-slate-500" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Modal Footer */}
+              <div className="flex items-center justify-end gap-2 p-4 sm:p-6 border-t border-slate-200">
+                <button
+                  onClick={closeEditModal}
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-lg transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={saveEdit}
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 bg-[#0B8BA6] text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-[#0a7a92] transition"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
