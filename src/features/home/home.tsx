@@ -101,10 +101,10 @@ export default function Page() {
       <section className="w-full bg-white">
         <div className="mx-auto w-full max-w-350 px-4 py-14 lg:px-10">
           <div className="flex items-center justify-between">
-            <h3 className="text-[28px] font-extrabold text-slate-900">Explore popular category</h3>
+            <h3 className="text-3xl font-semibold text-slate-900">Explore popular category</h3>
 
             <Link
-              href="/categories"
+              href="/shop"
               prefetch={false}
               className="text-[14px] font-medium text-slate-700 hover:text-slate-900"
             >
@@ -124,8 +124,8 @@ export default function Page() {
             ))}
           </div>
 
-          <h4 className="mt-14 text-[22px] font-extrabold text-slate-900">popular brands</h4>
-          <BrandSlider brands={brands} />
+          <h4 className="mt-14 text-3xl font-semibold text-slate-900">Popular Brands</h4>
+          <BrandSlider brands={duplicatedBrands} />
           
         </div>
       </section>
