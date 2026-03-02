@@ -65,7 +65,7 @@ export default function HomeHeroSlider() {
 
   return (
     <section className="w-full bg-white">
-      <div className="mx-auto w-full max-w-[1400px] px-4 py-10 lg:px-10">
+      <div className="mx-auto w-full max-w-7xl px-4 py-10 lg:px-10">
         <div
           className="relative overflow-hidden rounded-none bg-white"
           onMouseEnter={() => setPaused(true)}
@@ -78,9 +78,9 @@ export default function HomeHeroSlider() {
           >
             {slides.map((s, i) => (
               <div key={i} className="w-full shrink-0">
-                <div className="relative flex min-h-[220px] items-center border border-slate-200 bg-white px-13 py-10 sm:min-h-[260px] sm:px-16 lg:min-h-[380px] lg:px-18">
+                <div className="relative flex min-h-55 items-center border border-slate-200 bg-white px-13 py-10 sm:min-h-65 sm:px-16 lg:min-h-95 lg:px-18">
                   {/* Text */}
-                  <div className="relative z-10 max-w-[520px]">
+                  <div className="relative z-10 max-w-130">
                     <h2 className="whitespace-pre-line text-xl font-extrabold leading-[1.08] text-slate-900 sm:text-4xl lg:text-5xl">
                       {s.title}
                       {s.titleAccent ? (
@@ -116,7 +116,7 @@ export default function HomeHeroSlider() {
                       sizes="(max-width: 1024px) 70vw, 60vw"
                     />
                     {/* fade on left */}
-                    <div className="absolute left-0 top-0 h-full w-[160px] bg-gradient-to-r from-white to-transparent" />
+                    <div className="absolute left-0 top-0 h-full w-40 bg-linear-to-r from-white to-transparent" />
                   </div>
                 </div>
               </div>
@@ -153,7 +153,7 @@ export default function HomeHeroSlider() {
                 onClick={() => setIdx(i)}
                 aria-label={`Slide ${i + 1}`}
                 className={[
-                  'h-[6px] rounded-full transition-all',
+                  'h-1.5 rounded-full transition-all',
                   i === idx ? 'w-7 bg-slate-700' : 'w-2 bg-slate-300 hover:bg-slate-400',
                 ].join(' ')}
               />
