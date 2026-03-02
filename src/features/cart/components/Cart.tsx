@@ -452,11 +452,12 @@ export default function CartPage() {
                   </span>
                 </div>
 
-                {/* Checkout Button */}
+                <Link href="/address" className="w-full">
                 <button className="w-full bg-[#F59E0B] text-white py-2 sm:py-3 rounded-lg text-xs sm:text-sm font-bold hover:bg-[#e6950a] transition flex items-center justify-center gap-1 sm:gap-2">
                   Proceed to Checkout
                   <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
                 </button>
+                </Link>
 
                 {/* Payment Icons */}
                 <div className="mt-3 sm:mt-4 flex items-center justify-center gap-3 sm:gap-4 text-slate-400">
