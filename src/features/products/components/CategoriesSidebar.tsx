@@ -7,16 +7,11 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
 
-function parseHref(href: string) {
+function getCatFromHref(href: string): string | null {
   try {
-    const url = new URL(href, "http://local");
-    return {
-      pathname: url.pathname,
-      cat: url.searchParams.get("cat"),
-    };
+    return new URL(href, "http://local").searchParams.get("cat");
   } catch {
-    const [pathOnly] = href.split("?");
-    return { pathname: pathOnly || href, cat: null };
+    return null;
   }
 }
 
@@ -26,21 +21,18 @@ export default function CategoriesSidebar() {
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const currentCat = searchParams.get("cat");
+  const currentCat = searchParams.get("cat") ?? "all";
 
   useEffect(() => {
     const onDown = (e: MouseEvent) => {
       if (!wrapRef.current) return;
       if (!wrapRef.current.contains(e.target as Node)) setOpen(false);
     };
-
     const onEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
     };
-
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onEsc);
-
     return () => {
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("keydown", onEsc);
@@ -58,12 +50,15 @@ export default function CategoriesSidebar() {
             height={16}
             className="h-4 w-4 opacity-90"
           />
-          <span className="text-[16px] font-bold text-slate-800">Categories</span>
+          <span className="text-[16px] font-bold text-slate-800">
+            Categories
+          </span>
 
+          {/* Mobile toggle */}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="md:hidden flex h-9 items-center gap-2 rounded bg-slate-100 px-3 text-[12px] font-semibold text-slate-700 ml-33"
+            className="md:hidden flex h-9 items-center gap-2 rounded bg-slate-100 px-3 text-[12px] font-semibold text-slate-700 ml-auto"
             aria-expanded={open}
             aria-controls="categories-list"
           >
@@ -84,11 +79,8 @@ export default function CategoriesSidebar() {
           ].join(" ")}
         >
           {categories.map((c) => {
-            const { pathname: hrefPath, cat: hrefCat } = parseHref(c.href);
-
-          
-            const isActive =
-              pathname === hrefPath && (hrefCat ? currentCat === hrefCat : true);
+            const hrefCat = getCatFromHref(c.href) ?? "all";
+            const isActive = currentCat === hrefCat;
 
             return (
               <li key={c.href} className="w-full md:w-auto">
@@ -97,7 +89,7 @@ export default function CategoriesSidebar() {
                   onClick={() => setOpen(false)}
                   aria-current={isActive ? "page" : undefined}
                   className={[
-                    "block w-full text-center md:text-left text-[12px] font-semibold hover:text-[#0B8BA6]",
+                    "block w-full text-center md:text-left text-[12px] font-semibold hover:text-[#0B8BA6] transition-colors",
                     isActive ? "text-[#0B8BA6]" : "text-slate-500",
                   ].join(" ")}
                 >

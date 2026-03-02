@@ -1,12 +1,15 @@
-import Productcover from '@/features/products/Productcover'
-import React from 'react'
+import Productcover from "@/features/products/Productcover";
 
-const page = () => {
+type Props = {
+  searchParams?: { cat?: string; page?: string };
+};
+
+const Page = ({ searchParams }: Props) => {
   return (
     <div>
-      <Productcover/>
+      <Productcover searchParams={searchParams} />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default Page;

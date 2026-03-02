@@ -6,7 +6,9 @@ export type Product = {
   reviews: number;
   priceFrom: number;
   priceTo: number;
+  category: string;
   href: string;
+  description?: string;
 };
 
 export type CategoryItem = {
